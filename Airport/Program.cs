@@ -14,10 +14,10 @@ namespace Airport
         {
             var host = new WebHostBuilder()
                 .UseKestrel()
+				.UseUrls("ws://*:5001")
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()
-                .UseApplicationInsights()
                 .Build();
 
             host.Run();

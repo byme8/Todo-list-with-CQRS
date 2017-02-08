@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Airport.Commands;
+using Airport.CQRS;
+using Airport.Queries;
+using Airport.Services;
+using CQRS;
+using CQRS.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -29,14 +35,18 @@ namespace Airport
         {
             // Add framework services.
             services.AddMvc();
-        }
+			services.AddSingleton<IQueryManager, AirportQueryManager>();
+			services.AddSingleton<IQueryStorage, AirportQueryStorage>();
+			services.AddSingleton<UpdateTestHandler>();
+			services.AddSingleton<TestQueryHandler>();
+			services.AddSingleton<TestService>();
+			//services.AddCQRS();
+		}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
-
+			app.UseWebSockets( new WebSocketOptions { KeepAliveInterval = TimeSpan.FromSeconds(30), ReceiveBufferSize = 8192 });
             app.UseMvc();
         }
     }
