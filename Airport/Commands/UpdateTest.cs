@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Todo.Services;
 using CQRS.Interfaces;
+using CQRS.Data;
 
 namespace Todo.Commands
 {
@@ -16,21 +17,16 @@ namespace Todo.Commands
 		}
 	}
 
-	public class UpdateTestHandler : ICommandHandler
+	public class UpdateTestHandler : CommandHandler
 	{
 		private TestService testService;
-
-		public void Dispose()
-		{
-
-		}
 
 		public UpdateTestHandler(TestService service)
 		{
 			this.testService = service;
 		}
 
-		public void Handle(ICommand command)
+		public override void Handle(ICommand command)
 		{
 			var updateCommand = command as UpdateTest;
 			this.testService.Text = updateCommand.NewText;

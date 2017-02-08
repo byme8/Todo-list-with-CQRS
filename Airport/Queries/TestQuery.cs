@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Todo.Services;
 using CQRS.Interfaces;
+using CQRS.Data;
 
 namespace Todo.Queries
 {
@@ -16,21 +17,16 @@ namespace Todo.Queries
 		}
 	}
 
-	public class TestQueryHandler : IQueryHandler<TestQuery>
+	public class TestQueryHandler : QueryHandler<TestQuery>
 	{
 		private TestService testService;
-
-		public void Dispose()
-		{
-
-		}
 
 		public TestQueryHandler(TestService service)
 		{
 			this.testService = service;
 		}
 
-		public TestQuery Refresh()
+		public override TestQuery Refresh()
 		{
 			return new TestQuery
 			{
