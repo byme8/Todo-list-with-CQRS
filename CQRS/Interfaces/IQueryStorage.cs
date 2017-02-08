@@ -6,7 +6,9 @@ namespace CQRS.Interfaces
 {
     public interface IQueryStorage
     {
-		void Subscribe(Type queryType, ITransportChanell transportChanell);
+		IQuery Get(Type queryType);
+		TQuery Get<TQuery>()
+			where TQuery : class, IQuery;
 		void Refresh(IEnumerable<Type> queryTypes);
     }
 }

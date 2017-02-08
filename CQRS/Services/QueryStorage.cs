@@ -37,37 +37,19 @@ namespace CQRS.Services
 					throw new InvalidOperationException($"Query {queryType.Name} is not supported.");
 
 				using (var queryHandler = this.serviceProvider.GetService(queryHandlerType) as IQueryHandler<IQuery>)
-				{
-					var query = queryHandler.Refresh();
-					this.queries[queryType] = query;
-					if (this.transportChanells.ContainsKey(queryType))
-						foreach (var transportChanell in this.transportChanells[queryType].ToArray())
-							this.TryToSend(query, transportChanell);
-				}
+					this.queries[queryType] = queryHandler.Refresh();
 			}
 		}
 
-		private void TryToSend(IQuery query, ITransportChanell transportChanell)
+		public IQuery Get(Type queryType)
 		{
-			try
-			{
-				transportChanell.Send(query);
-			}
-			catch (Exception)
-			{
-				this.transportChanells[query.GetType()].Remove(transportChanell);
-			}
+			return this.queries[queryType];
 		}
 
-		public void Subscribe(Type queryType, ITransportChanell transportChanell)
+		public TQuery Get<TQuery>()
+			where TQuery : class, IQuery
 		{
-			if (!this.transportChanells.ContainsKey(queryType))
-				this.transportChanells.Add(queryType, new List<ITransportChanell>() { transportChanell });
-			else
-				this.transportChanells[queryType].Add(transportChanell);
-
-			var currentQueryValue = this.queries[queryType];
-			this.TryToSend(currentQueryValue, transportChanell);
+			return this.queries[typeof(TQuery)] as TQuery;
 		}
 	}
 }

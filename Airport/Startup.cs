@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Airport.Commands;
-using Airport.CQRS;
-using Airport.Queries;
-using Airport.Services;
+using Todo.Commands;
+using Todo.CQRS;
+using Todo.Queries;
+using Todo.Services;
 using CQRS;
 using CQRS.Interfaces;
 using Microsoft.AspNetCore.Builder;
@@ -14,7 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace Airport
+namespace Todo
 {
     public class Startup
     {
@@ -35,8 +35,8 @@ namespace Airport
         {
             // Add framework services.
             services.AddMvc();
-			services.AddSingleton<IQueryManager, AirportQueryManager>();
-			services.AddSingleton<IQueryStorage, AirportQueryStorage>();
+			services.AddSingleton<IQueryManager, TodoQueryManager>();
+			services.AddSingleton<IQueryStorage, TodoQueryStorage>();
 			services.AddSingleton<UpdateTestHandler>();
 			services.AddSingleton<TestQueryHandler>();
 			services.AddSingleton<TestService>();

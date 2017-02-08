@@ -6,13 +6,12 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Airport.Commands;
-using Airport.Queries;
+using Todo.Commands;
+using Todo.Queries;
 using CQRS.Interfaces;
-using CQRS.TransportChanells;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Airport.Controllers
+namespace Todo.Controllers
 {
     [Route("api")]
     public class WebSocketController : Controller
@@ -27,15 +26,9 @@ namespace Airport.Controllers
 		}
 
 		[Route("query/test")]
-		public async Task<HttpResponseMessage> TestQueryAsync()
+		public TestQuery Test()
 		{
-			if (this.HttpContext.WebSockets.IsWebSocketRequest)
-			{
-				var socket = await this.HttpContext.WebSockets.AcceptWebSocketAsync();
-				this.Storage.Subscribe(typeof(TestQuery), socket.ToTransportChanell());
-			}
-
-			return new HttpResponseMessage(System.Net.HttpStatusCode.SwitchingProtocols);
+			return this.Storage.Get<TestQuery>();
 		}
 
 		[HttpPost]

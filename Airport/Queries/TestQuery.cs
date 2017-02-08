@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Airport.Services;
+using Todo.Services;
 using CQRS.Interfaces;
 
-namespace Airport.Queries
+namespace Todo.Queries
 {
 	public class TestQuery : IQuery
 	{

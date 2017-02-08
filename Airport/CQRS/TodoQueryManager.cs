@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Airport.Commands;
-using Airport.Queries;
+using Todo.Commands;
+using Todo.Queries;
 using CQRS.Interfaces;
 using CQRS.Services;
 
-namespace Airport.CQRS
+namespace Todo.CQRS
 {
-	public class AirportQueryManager : QueryManager
+	public class TodoQueryManager : QueryManager
 	{
-		public AirportQueryManager(IServiceProvider serviceProvider, IQueryStorage storage) 
+		public TodoQueryManager(IServiceProvider serviceProvider, IQueryStorage storage) 
 			: base(serviceProvider, storage)
 		{
 		}
