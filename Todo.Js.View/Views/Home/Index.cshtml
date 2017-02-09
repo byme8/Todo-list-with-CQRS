@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="~/css/bundle.css" />
+    <script src="~/js/App.js"></script>
+    <script src="~/js/bundle.js"></script>
+</head>
+<body>
+    <div class="ui equal width stretched grid">
+        <div class="four wide column"></div>
+        <div class="seven wide center aligned column">
+            <table class="ui single line table">
+                <thead>
+                    <tr>
+                        <th>Tasks</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="todolist">
+                </tbody>
+            </table>
+            <div class="ui icon field input">
+                <input id="taskText" placeholder="Input new task..." type="text" 
+                       onkeydown="if (event.keyCode == 13) {
+                                        TodoService.tryAdd();
+                                    }"/>
+            </div>
+            <div class="top attached button">
+                <div id="taskButton" class="fluid ui button" onclick="TodoService.toggleTaskVisibility();"></div>
+            </div>
+        </div>
+        <div class="four wide column"></div>
+    </div>
+</body>
+</html>

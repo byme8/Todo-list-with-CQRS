@@ -1,0 +1,24 @@
+﻿[
+  {
+    "outputFileName": "wwwroot/css/bundle.css",
+    "inputFiles": [
+      "wwwroot/lib/semantic/dist/semantic.css",
+      "wwwroot/lib/semantic/dist/components/*.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/bundle.js",
+    "inputFiles": [
+      "wwwroot/lib/jquery/dist/core.js",
+      "wwwroot/lib/jquery/dist/jquery.js",
+      "wwwroot/lib/jquery/dist/jquery.slim.js",
+      "wwwroot/lib/semantic/dist/semantic.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/App.js",
+    "inputFiles": [
+      "Scripts/App.js"
+    ]
+  }
+]
