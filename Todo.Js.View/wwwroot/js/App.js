@@ -45,10 +45,7 @@ var TodoService = function () {
     var tasks = null;
     var finishedTasksVisible = true;
     var add = function (message) {
-        http.post("http://localhost:5001/api/todo/add/", new
-            {
-                Message: message
-            },
+        http.post("http://localhost:5001/api/todo/add/", { Message: message },
             function (responce) {
                 scope.get();
             });

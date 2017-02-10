@@ -31,7 +31,7 @@ namespace Todo.Queries
 		{
 			return new AllTodoTasksQuery
 			{
-				Tasks = this.todoService.GetAll()
+				Tasks = this.todoService.GetAll().ToArray()
 			};
 		}
 	}

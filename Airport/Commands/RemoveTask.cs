@@ -17,7 +17,7 @@ namespace Todo.Commands
 		}
 	}
 
-	public class RemoveTaskHandler : CommandHandler
+	public class RemoveTaskHandler : CommandHandler<RemoveTask>
 	{
 		private TodoService todoService;
 
@@ -26,10 +26,9 @@ namespace Todo.Commands
 			this.todoService = service;
 		}
 
-		public override void Handle(ICommand command)
+		public override void Handle(RemoveTask command)
 		{
-			var removeCommand = command as RemoveTask;
-			this.todoService.Remove(Guid.Parse(removeCommand.Key));
+			this.todoService.Remove(Guid.Parse(command.Key));
 		}
 	}
 }

@@ -37,5 +37,12 @@ namespace Todo.Controllers
 		{
 			this.Manager.Execute(command);
 		}
-    }
+
+		[HttpPost]
+		[Route("add")]
+		public void Add([FromBody]AddNewTask command)
+		{
+			this.Manager.Execute(command);
+		}
+	}
 }

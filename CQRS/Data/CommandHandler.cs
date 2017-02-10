@@ -5,13 +5,19 @@ using CQRS.Interfaces;
 
 namespace CQRS.Data
 {
-	public abstract class CommandHandler : ICommandHandler
+	public abstract class CommandHandler<TCommand> : ICommandHandler<TCommand>
+		where TCommand : ICommand
 	{
 		public virtual void Dispose()
 		{
 
 		}
 
-		public abstract void Handle(ICommand command);
+		public abstract void Handle(TCommand command);
+
+		public void Handle(ICommand command)
+		{
+			this.Handle((TCommand)command);
+		}
 	}
 }

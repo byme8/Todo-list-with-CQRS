@@ -8,4 +8,10 @@ namespace CQRS.Interfaces
     {
 		void Handle(ICommand command);
     }
+
+	public interface ICommandHandler<TCommand> : ICommandHandler
+		where TCommand : ICommand
+	{
+		void Handle(TCommand command);
+	}
 }

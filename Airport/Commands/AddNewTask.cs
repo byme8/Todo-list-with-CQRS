@@ -17,19 +17,18 @@ namespace Todo.Commands
 		}
 	}
 
-	public class AddNewTaskCommandHandler : CommandHandler
+	public class AddNewTaskHandler : CommandHandler<AddNewTask>
 	{
 		private TodoService todoService;
 
-		public AddNewTaskCommandHandler(TodoService todoService)
+		public AddNewTaskHandler(TodoService todoService)
 		{
 			this.todoService = todoService;
 		}
 
-		public override void Handle(ICommand command)
+		public override void Handle(AddNewTask command)
 		{
-			var addNewTask = command as AddNewTask;
-			this.todoService.New(addNewTask.Message);
+			this.todoService.New(command.Message);
 		}
 	}
 }

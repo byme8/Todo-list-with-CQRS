@@ -38,6 +38,7 @@ namespace Todo
 			services.AddSingleton<IQueryManager, TodoQueryManager>();
 			services.AddSingleton<IQueryStorage, TodoQueryStorage>();
 			services.AddSingleton<RemoveTaskHandler>();
+			services.AddSingleton<AddNewTaskHandler>();
 			services.AddSingleton<AllTodoTasksQueryHandler>();
 			services.AddSingleton<TodoService>();
 		}
