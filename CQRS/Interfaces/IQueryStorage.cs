@@ -9,6 +9,6 @@ namespace CQRS.Interfaces
 		IQuery Get(Type queryType);
 		TQuery Get<TQuery>()
 			where TQuery : class, IQuery;
-		void Refresh(IEnumerable<Type> queryTypes);
+		void Cleanup(IEnumerable<Type> queryTypes);
     }
 }

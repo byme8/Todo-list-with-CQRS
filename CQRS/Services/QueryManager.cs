@@ -40,7 +40,7 @@ namespace CQRS.Services
 			if (queries is null)
 				return;
 
-			this.storage.Refresh(queries);
+			this.storage.Cleanup(queries);
 		}
 	}
 }
