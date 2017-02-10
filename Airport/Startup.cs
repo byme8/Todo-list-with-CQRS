@@ -37,16 +37,15 @@ namespace Todo
             services.AddMvc();
 			services.AddSingleton<IQueryManager, TodoQueryManager>();
 			services.AddSingleton<IQueryStorage, TodoQueryStorage>();
-			services.AddSingleton<UpdateTestHandler>();
-			services.AddSingleton<TestQueryHandler>();
-			services.AddSingleton<TestService>();
-			//services.AddCQRS();
+			services.AddSingleton<RemoveTaskHandler>();
+			services.AddSingleton<AllTodoTasksQueryHandler>();
+			services.AddSingleton<TodoService>();
 		}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-			app.UseWebSockets( new WebSocketOptions { KeepAliveInterval = TimeSpan.FromSeconds(30), ReceiveBufferSize = 8192 });
+			app.UseCors(o => o.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
             app.UseMvc();
         }
     }

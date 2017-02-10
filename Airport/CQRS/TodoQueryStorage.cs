@@ -16,7 +16,7 @@ namespace Todo.CQRS
 
 		protected override void CreateQueryHandlers()
 		{
-			this.QueryHandlers.Add(typeof(TestQuery), typeof(TestQueryHandler));
+			this.QueryHandlers.Add(typeof(AllTodoTasksQuery), typeof(AllTodoTasksQueryHandler));
 		}
 	}
 }

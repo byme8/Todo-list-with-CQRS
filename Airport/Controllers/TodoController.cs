@@ -13,27 +13,27 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Todo.Controllers
 {
-    [Route("api")]
-    public class WebSocketController : Controller
+    [Route("api/todo")]
+    public class TodoController : Controller
     {
 		private IQueryStorage Storage;
 		private IQueryManager Manager;
 
-		public WebSocketController(IQueryStorage storage, IQueryManager manager)
+		public TodoController(IQueryStorage storage, IQueryManager manager)
 		{
 			this.Storage = storage;
 			this.Manager = manager;
 		}
 
-		[Route("query/test")]
-		public TestQuery Test()
+		[Route("tasks")]
+		public AllTodoTasksQuery GetTasks()
 		{
-			return this.Storage.Get<TestQuery>();
+			return this.Storage.Get<AllTodoTasksQuery>();
 		}
 
 		[HttpPost]
-		[Route("command/update")]
-		public void Update(UpdateTest command)
+		[Route("remove")]
+		public void Update([FromBody]RemoveTask command)
 		{
 			this.Manager.Execute(command);
 		}

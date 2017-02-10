@@ -1,10 +1,9 @@
 var http = function () {
     var scope = new Object();
 
-    scope.get = function (url, success = null, error = null) {
+    scope.sendRequest = function (kind, url, data, success = null, error = null) {
         var request = new XMLHttpRequest();
-        request.open('GET', url);
-        request.send(null);
+        request.open(kind, url);
         request.onreadystatechange = function () {
             var DONE = 4;
             var OK = 200;
@@ -21,27 +20,46 @@ var http = function () {
                 }
             }
         }
+
+        if (kind == 'POST') {
+            request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+        }
+
+        request.send(JSON.stringify(data));
+    };
+
+
+    scope.get = function (url, success = null, error = null) {
+        scope.sendRequest('GET', url, null, success, error);
+    };
+
+    scope.post = function (url, data, success = null, error = null) {
+        scope.sendRequest('POST', url, data, success, error);
     };
 
     return scope;
-} ();
+}();
 
 var TodoService = function () {
     var scope = new Object();
     var tasks = null;
     var finishedTasksVisible = true;
     var add = function (message) {
-        http.get("http://localhost:5001/api/todo/add/" + message, function (responce) {
-            scope.get();
-        });
+        http.post("http://localhost:5001/api/todo/add/", new
+            {
+                Message: message
+            },
+            function (responce) {
+                scope.get();
+            });
     };
 
-    var setupTasks = function (responce) {
+    var setupTasks = function (tasks) {
         var todolist = document.getElementById("todolist");
         var todolistHtml = "";
 
-        for (var i = 0; i < responce.length; i++) {
-            var task = responce[i];
+        for (var i = 0; i < tasks.length; i++) {
+            var task = tasks[i];
 
             if (!finishedTasksVisible && task.finished)
                 continue;
@@ -73,7 +91,7 @@ var TodoService = function () {
     }
 
     scope.remove = function (key) {
-        http.get("http://localhost:5001/api/todo/remove/" + key, function (responce) {
+        http.post("http://localhost:5001/api/todo/remove/", { Key: key }, function (responce) {
             scope.get();
         });
     };
@@ -86,7 +104,7 @@ var TodoService = function () {
 
     scope.get = function () {
         http.get("http://localhost:5001/api/todo/tasks", function (responce) {
-            tasks = responce;
+            tasks = responce.tasks;
             setupTasks(tasks);
         });
     };
@@ -106,7 +124,7 @@ var TodoService = function () {
     };
 
     return scope;
-} ();
+}();
 
 
 window.onload = function (a) {

@@ -18,12 +18,13 @@ namespace Todo.CQRS
 
 		protected override void CreateCommandHandlers()
 		{
-			this.CommandHandlers.Add(typeof(UpdateTest), typeof(UpdateTestHandler));
+			this.CommandHandlers.Add(typeof(RemoveTask), typeof(RemoveTaskHandler));
+			this.CommandHandlers.Add(typeof(AddNewTask), typeof(AddNewTaskCommandHandler));
 		}
 
 		protected override void CreateLinks()
 		{
-			this.LinkQueryToCommand.Add(typeof(UpdateTest), new List<Type> { typeof(TestQuery) });
+			this.LinkQueryToCommand.Add(typeof(RemoveTask), new List<Type> { typeof(AllTodoTasksQuery) });
 		}
 	}
 }
