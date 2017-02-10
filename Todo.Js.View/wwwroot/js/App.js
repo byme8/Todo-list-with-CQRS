@@ -94,7 +94,7 @@ var TodoService = function () {
     };
 
     scope.toggle = function (key) {
-        http.get("http://localhost:5001/api/todo/task/" + key + "/toggle", function (responce) {
+        http.post("http://localhost:5001/api/todo/toggle", { Key : key}, function (responce) {
             scope.get();
         });
     };

@@ -34,6 +34,14 @@ namespace Todo.Services
 			return this.Tasks;
 		}
 
+		public void Toggle(Guid key)
+		{
+			var task = this.Tasks.FirstOrDefault(o => o.Key == key) 
+				?? throw new InvalidOperationException($"Task with key {key} does not exist");
+
+			task.Finished = !task.Finished;
+		}
+
 		public void New(string message)
 		{
 			this.Tasks.Add(new TodoTask

@@ -44,5 +44,12 @@ namespace Todo.Controllers
 		{
 			this.Manager.Execute(command);
 		}
+
+		[HttpPost]
+		[Route("toggle")]
+		public void Toggle([FromBody]Toggle command)
+		{
+			this.Manager.Execute(command);
+		}
 	}
 }

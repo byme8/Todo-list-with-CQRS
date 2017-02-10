@@ -20,12 +20,14 @@ namespace Todo.CQRS
 		{
 			this.CommandHandlers.Add(typeof(RemoveTask), typeof(RemoveTaskHandler));
 			this.CommandHandlers.Add(typeof(AddNewTask), typeof(AddNewTaskHandler));
+			this.CommandHandlers.Add(typeof(Toggle), typeof(ToggleHandler));
 		}
 
 		protected override void CreateLinks()
 		{
 			this.LinkQueryToCommand.Add(typeof(RemoveTask), new List<Type> { typeof(AllTodoTasksQuery) });
 			this.LinkQueryToCommand.Add(typeof(AddNewTask), new List<Type> { typeof(AllTodoTasksQuery) });
+			this.LinkQueryToCommand.Add(typeof(Toggle), new List<Type> { typeof(AllTodoTasksQuery) });
 		}
 	}
 }

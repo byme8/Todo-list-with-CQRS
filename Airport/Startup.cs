@@ -1,22 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Todo.Commands;
-using Todo.CQRS;
-using Todo.Queries;
-using Todo.Services;
-using CQRS;
-using CQRS.Interfaces;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Todo.Ioc;
 
 namespace Todo
 {
-    public class Startup
+	public class Startup
     {
         public Startup(IHostingEnvironment env)
         {
@@ -35,12 +26,7 @@ namespace Todo
         {
             // Add framework services.
             services.AddMvc();
-			services.AddSingleton<IQueryManager, TodoQueryManager>();
-			services.AddSingleton<IQueryStorage, TodoQueryStorage>();
-			services.AddSingleton<RemoveTaskHandler>();
-			services.AddSingleton<AddNewTaskHandler>();
-			services.AddSingleton<AllTodoTasksQueryHandler>();
-			services.AddSingleton<TodoService>();
+			services.AddTodoService();
 		}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
