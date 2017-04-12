@@ -33,7 +33,7 @@ namespace CQRS.Services
 				this.queries[queryType] = null;
 		}
 
-		private void Refresh(Type queryType)
+		private IQuery Refresh(Type queryType)
 		{
 			this.QueryHandlers.TryGetValue(queryType, out Type queryHandlerType);
 
@@ -41,7 +41,9 @@ namespace CQRS.Services
 				throw new InvalidOperationException($"Query {queryType.Name} is not supported.");
 
 			using (var queryHandler = this.serviceProvider.GetService(queryHandlerType) as IQueryHandler<IQuery>)
-				this.queries[queryType] = queryHandler.Refresh();
+			{
+				return this.queries[queryType] = queryHandler.Refresh();
+			}
 		}
 
 		public IQuery Get(Type queryType)
@@ -49,10 +51,7 @@ namespace CQRS.Services
 			var query = this.queries[queryType];
 
 			if (query is null)
-			{
-				this.Refresh(queryType);
-				query = this.queries[queryType];
-			}
+				query = this.Refresh(queryType);
 
 			return this.queries[queryType];
 		}
